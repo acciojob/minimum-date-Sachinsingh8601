@@ -1,8 +1,29 @@
 
   function minDate(dates) {
+  if (!Array.isArray(dates) || dates.length === 0) {
+    return null;
+  }
+  return [...dates].sort()[0];
+}
 
-  const sortedDates = [...dates].sort();
-  return sortedDates[0];
+function showMinDate() {
+  const input = document.getElementById("dateInput").value;
+  const dateArray = input.split(",").map(str => str.trim());
+
+  const validFormat = /^\d{4}\/\d{2}\/\d{2}$/;
+  const allValid = dateArray.every(date => validFormat.test(date));
+
+  const resultBox = document.getElementById("result");
+  resultBox.classList.remove("error");
+
+  if (!allValid || dateArray.length === 0) {
+    resultBox.textContent = "Please enter valid dates in YYYY/MM/DD format.";
+    resultBox.classList.add("error");
+    return;
+  }
+
+  const earliest = minDate(dateArray);
+  resultBox.textContent = `Earliest Date: ${earliest}`;
 }
 
 }
