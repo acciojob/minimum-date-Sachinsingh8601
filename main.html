@@ -7,7 +7,69 @@
 </head>
 
 <body>
-	<!-- the entire body must be written by student -->
+	<!DOCTYPE html>
+<html>
+<head>
+  <title>Find Earliest Date</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px 0;
+      width: 100%;
+      max-width: 400px;
+      box-sizing: border-box;
+    }
+    #result {
+      margin-top: 15px;
+      font-size: 1.2em;
+      font-weight: bold;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Find the Earliest Date</h2>
+  <p>Enter dates in YYYY/MM/DD format, separated by commas:</p>
+
+  <input type="text" id="dateInput" placeholder="e.g. 2023/03/01, 2022/12/31, 2023/01/01" />
+  <button onclick="handleMinDate()">Find Minimum Date</button>
+
+  <div id="result"></div>
+
+  <script>
+    function minDate(dates) {
+      // Use spread operator to avoid modifying the original array
+      const sortedDates = [...dates].sort();
+      return sortedDates[0];
+    }
+
+    function handleMinDate() {
+      const input = document.getElementById("dateInput").value;
+      const dateArray = input.split(",").map(date => date.trim());
+
+      
+      const validFormat = /^\d{4}\/\d{2}\/\d{2}$/;
+      const allValid = dateArray.every(date => validFormat.test(date));
+
+      if (!allValid) {
+        document.getElementById("result").innerText = "❌ Please enter valid dates in YYYY/MM/DD format.";
+        return;
+      }
+
+      const earliest = minDate(dateArray);
+      document.getElementById("result").innerText = "✅ Earliest Date: " + earliest;
+    }
+  </script>
+
+</body>
+</html>
+
     <script type="text/javascript" src="./script.js">
 </script>
 
